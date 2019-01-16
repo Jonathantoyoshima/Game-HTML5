@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://connect.facebook.net/en_US/fbinstant.6.2.js"></script>
+
+</head>
+<body>
+	<div id="teste"></div>
+	<div id="teste2"></div>
+<script type="text/javascript">
+	
+FBInstant.initializeAsync().then(function() {        
+      console.log('init');
+      document.getElementById('teste').innerHTML = "teste";
+
+  });
+
+FBInstant.startGameAsync().then(function(){
+  	console.log('stat game');  	
+  	document.getElementById('teste2').innerHTML = "teste";
+  });
+
+</script>
+</body>
+</html>
