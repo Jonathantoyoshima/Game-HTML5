@@ -2,25 +2,114 @@
 <html>
 <head>
 	<title></title>
-	<script src="https://connect.facebook.net/en_US/fbinstant.6.2.js"></script>
-
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- <script type="text/javascript" src="https://connect.facebook.net/en_US/fbinstant.6.2.js"></script> -->
+	<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+	<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+	<script type="text/javascript" src="fbinstant.6.0.mock.js"></script>
+	<style media="screen">
+		body {
+			background-color: #000;
+			color: #fff;
+			text-align: center;
+		}
+		.table{
+			display: table;
+		}
+		.row{
+			display: table-row;
+		}
+		.cell{
+			display: table-cell;
+		}
+	</style>
 </head>
 <body>
-	<div id="teste"></div>
-	<div id="teste2"></div>
-<script type="text/javascript">
+	<div id="hello-example"></div>
+	<div class=""><p>Value 1: <span class="value1"></span></p></div>
+	<div class=""><p>Value 2: <span class="value2"></span></p></div>
+	<div class="table">
+		<div class="row">
+			<div class="cell">x</div>
+			<div class="cell">x</div>
+		</div>
+		<div class="row">
+			<div class="cell">x</div>
+			<div class="cell">x</div>
+		</div>
+	</div>
+	<button class="button1" type="button" name="button">Remove Value 1</button>
+	<!-- <button class="button2" type="button" name="button">Remove Value 2</button> -->
 	
-FBInstant.initializeAsync().then(function() {        
-      console.log('init');
-      document.getElementById('teste').innerHTML = "teste";
+	<script type="text/javascript">
+// 	class HelloMessage extends React.Component {
+//   render() {
+//     return React.createElement(
+//       "div",
+//       null,
+//       "Hello ",
+//       this.props.name
+//     );
+//   }
+// }
+//
+// ReactDOM.render(React.createElement(HelloMessage, { name: "Taylor" }), document.getElementById('hello-example'));
+	var table = [[0,0],[0,0]];
 
-  });
+	for (var i = 0; i < table.length; i++) {
+		document.createElement('div');
 
-FBInstant.startGameAsync().then(function(){
-  	console.log('stat game');  	
-  	document.getElementById('teste2').innerHTML = "teste";
-  });
+		table[i]
+	}
 
-</script>
+	window.onload = function() {
+		function oPawn(hp, atk) {
+			this.hp  = hp;
+			this.atk = atk;
+			this.hit = function(target){
+					target.hp -= this.atk;
+			}
+		};
+		function atking(agg, def){
+			agg.hit(def);
+		}
+
+
+
+		var turn = Math.round(Math.random() * 1) + 1;
+
+		console.log(turn);
+
+		var pawn1 = new oPawn(10, 2);
+		var pawn2 = new oPawn(20, 1);
+
+		function ftn1(evt){
+			if(turn == 1){
+				turn = 2;
+				atking(pawn1, pawn2);
+				document.querySelector(".value2").innerHTML = pawn2.hp;
+			}else{
+				turn = 1;
+				atking(pawn2, pawn1);
+				document.querySelector(".value1").innerHTML = pawn1.hp;
+			}
+		};
+
+		function startGame() {
+				document.querySelector(".value1").innerHTML = pawn1.hp;
+				document.querySelector(".value2").innerHTML = pawn2.hp;
+				document.querySelector(".button1").addEventListener("click", ftn1, false);
+				// document.querySelector(".button2").addEventListener("click", ftn1, false);
+
+				//document.getElementById('teste1').innerHTML = "oi";
+		};
+
+		FBInstant.initializeAsync().then(function() {
+			FBInstant.startGameAsync().then(function() {
+				startGame();
+			});
+		});
+	};
+	</script>
 </body>
 </html>
