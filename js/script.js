@@ -1,59 +1,89 @@
 function init () {
  'use strict';
- function select(){
-   var findNum = Number(this.id.slice(4));
-   var player = this.classList[1];
-   var top = (findNum - 5);
-   var down = (findNum + 5);
-   var left = (findNum - 1);
-   var right = (findNum + 1);
+ var turn = Math.round(Math.random()) + 1;
+
+ function select(evt) {
+   var findNum = Number(evt.target.id.slice(4)),
+       player = evt.target.classList[1],
+       top = findNum - 5,
+       down = findNum + 5,
+       left = findNum - 1,
+       right = findNum + 1;
    //console.log(this.classList[1]);
-   function move (){
-     document.getElementById('cell' + findNum).classList.remove(player);
-     document.getElementById('cell' + findNum).removeEventListener('click', select);
+
+   function playAction(evt){
+     function move (evt){
+       document.getElementById('cell' + findNum).classList.remove(player);
+       document.getElementById('cell' + findNum).removeEventListener('click', select);
+
+       document.getElementById(evt.target.id).classList.add(player);
+       document.getElementById(evt.target.id).style.borderColor = "white";
+     }
+
+     function kill(evt){
+       document.getElementById(evt.target.id).classList.remove(evt.target.classList[1]);
+     }
+
+     function clearSelection(ref, fn) {
+       document.getElementById('cell' + ref).style.borderColor = "white";
+       document.getElementById('cell' + ref).removeEventListener('click', fn);
+     }
+
      if(down <= 25){
-       document.getElementById('cell' + down).style.borderColor = "white";
-       document.getElementById('cell' + down).removeEventListener('click', move);
+       clearSelection(down, playAction);
      }
      if(top > 0) {
-       document.getElementById('cell' + top).style.borderColor = "white";
-       document.getElementById('cell' + top).removeEventListener('click', move);
+       clearSelection(top, playAction);
      }
-     if((findNum % 5) - 1 != 0) {
-       document.getElementById('cell' + left).style.borderColor = "white";
-       document.getElementById('cell' + left).removeEventListener('click', move);
+     if((findNum % 5) - 1 !== 0) {
+       clearSelection(left, playAction);
      }
-     if((findNum % 5) != 0) {
-       document.getElementById('cell' + right).style.borderColor = "white";
-       document.getElementById('cell' + right).removeEventListener('click', move);
+     if((findNum % 5) !== 0) {
+       clearSelection(right, playAction);
      }
-     document.getElementById(this.id).classList.add(player);
-     document.getElementById(this.id).style.borderColor = "white";
-     document.getElementById(this.id).addEventListener('click', select);
+
+     if(evt.target.classList[1]) {
+       kill(evt);
+     } else {
+       move(evt);
+       getTurn();
+     }
    }
+
+   function action(ref){
+     document.getElementById('cell' + ref).style.borderColor = "green";
+     document.getElementById('cell' + ref).addEventListener('click', playAction);
+   }
+
    if(down <= 25){
-     document.getElementById('cell' + down).style.borderColor = "green";
-     document.getElementById('cell' + down).addEventListener('click', move);
+     action(down);
    }
    if(top > 0) {
-     document.getElementById('cell' + top).style.borderColor = "green";
-     document.getElementById('cell' + top).addEventListener('click', move);
+     action(top);
    }
-   if((findNum % 5) - 1 != 0) {
-     document.getElementById('cell' + left).style.borderColor = "green";
-     document.getElementById('cell' + left).addEventListener('click', move);
+   if((findNum % 5) - 1 !== 0) {
+     action(left);
    }
-   if((findNum % 5) != 0) {
-     document.getElementById('cell' + right).style.borderColor = "green";
-     document.getElementById('cell' + right).addEventListener('click', move);
+   if((findNum % 5) !== 0) {
+     action(right);
    }
 }
 
-  document.getElementById('cell5').classList.add("player1");
-  document.getElementById('cell5').addEventListener('click', select);
+function getTurn() {
+  document.querySelector('.turn').innerHTML = "Turn : " + turn;
+  if(turn === 1) {
+    document.querySelector('.player1').addEventListener('click', select);
+    turn = 2;
+  } else {
+    document.querySelector('.player2').addEventListener('click', select);
+    turn = 1;
+  }
+}
 
+  document.getElementById('cell5').classList.add("player1");
   document.getElementById('cell21').classList.add("player2");
-  document.getElementById('cell21').addEventListener('click', select);
+
+  getTurn();
 }
 
 window.addEventListener('load', init);
