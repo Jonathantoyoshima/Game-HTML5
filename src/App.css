@@ -1,0 +1,41 @@
+body{
+  background-color: #282c34;
+}
+
+.App {
+  text-align: center;
+  height: 100vh;
+}
+
+.App-header {
+  display: flex;
+  flex-direction: row;
+  background-color: #282c34;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+.Board{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  min-width: calc(8 * 3vw);
+  min-height: calc(8 * 3vw);
+}
+.Square {
+  display: flex;
+  float: left;
+  border: 1px solid #FFF;
+  min-width: 3vw;
+  min-height: 3vw;
+}
+.Row {
+  display: flex;
+  flex-direction: row;
+}
