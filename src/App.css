@@ -27,21 +27,29 @@ body{
   background-color: red;
 }
 .Board{
-  display: flex;
-  flex-direction: row;
+  display: inline;
   align-items: center;
   justify-content: center;
-  min-width: calc(8 * 3vw);
-  min-height: calc(8 * 3vw);
+  /* width: calc(100px + 2vmin); */
+  /* height: calc(100px + 2vmin); */
+  /* min-width: calc(8 * 2vmin); */
+  /* min-height: calc(8 * 2vmin); */
 }
 .Square {
-  display: flex;
-  float: left;
+  /* float: left; */
   border: 1px solid #FFF;
+<<<<<<< HEAD
   width: 50px;
   height: 50px;
 }
 .Row {
   display: flex;
   flex-direction: row;
+=======
+  width: 20px;
+  height: 20px;
+  /* min-width: 2vw; */
+  /* min-height: 2vw; */
+>>>>>>> b66c4fd930626f56785b17618c75df4f7fffa432
 }
+.Row {}
