@@ -3,54 +3,39 @@ import logo from './logo.svg';
 import './App.css';
 
 class Square extends Component {
+  constructor(props) {
+    super(props);
+  };
   render() {
-    return (<div className="Square"></div>);
+    return (
+        <div className="Square">
+          {this.props.name}
+      </div>
+    );
   };
 }
 class Board extends Component {
+  renderSquare(i) {
+    return <Square value={i} />
+  }
+
   render () {
     return(
       <div className="Board">
       <div class="Row">
-      <Square />
-      <Square />
-      <Square />
-      <Square />
-      <Square />
-      <Square />
-      <Square />
-      <Square />
+        {this.renderSquare([0,0])}
+        {this.renderSquare([1,0])}
+        {this.renderSquare([2,0])}
+        {this.renderSquare([3,0])}
+        {this.renderSquare([4,0])}
       </div>
       <div class="Row">
-      <Square />
-      <Square />
-      <Square />
-      <Square />
-      <Square />
-      <Square />
-      <Square />
-      <Square />
-      </div>
-      <div class="Row">
-      <Square />
-      <Square />
-      <Square />
-      <Square />
-      <Square />
-      <Square />
-      <Square />
-      <Square />
-      </div>
-      <div class="Row">
-      <Square />
-      <Square />
-      <Square />
-      <Square />
-      <Square />
-      <Square />
-      <Square />
-      <Square />
-      </div>
+        {this.renderSquare([0,1])}
+        {this.renderSquare([1,1])}
+        {this.renderSquare([2,1])}
+        {this.renderSquare([3,1])}
+        {this.renderSquare([4,1])}
+      </div>      
     </div>)
   }
 }

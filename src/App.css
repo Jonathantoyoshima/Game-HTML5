@@ -21,21 +21,20 @@ body{
   color: #61dafb;
 }
 .Board{
-  display: flex;
-  flex-direction: row;
+  display: inline;
   align-items: center;
   justify-content: center;
-  min-width: calc(8 * 3vw);
-  min-height: calc(8 * 3vw);
+  /* width: calc(100px + 2vmin); */
+  /* height: calc(100px + 2vmin); */
+  /* min-width: calc(8 * 2vmin); */
+  /* min-height: calc(8 * 2vmin); */
 }
 .Square {
-  display: flex;
-  float: left;
+  /* float: left; */
   border: 1px solid #FFF;
-  min-width: 3vw;
-  min-height: 3vw;
+  width: 20px;
+  height: 20px;
+  /* min-width: 2vw; */
+  /* min-height: 2vw; */
 }
-.Row {
-  display: flex;
-  flex-direction: row;
-}
+.Row {}
