@@ -38,18 +38,10 @@ body{
 .Square {
   /* float: left; */
   border: 1px solid #FFF;
-<<<<<<< HEAD
   width: 50px;
   height: 50px;
 }
 .Row {
   display: flex;
   flex-direction: row;
-=======
-  width: 20px;
-  height: 20px;
-  /* min-width: 2vw; */
-  /* min-height: 2vw; */
->>>>>>> b66c4fd930626f56785b17618c75df4f7fffa432
 }
-.Row {}
