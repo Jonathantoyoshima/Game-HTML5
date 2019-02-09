@@ -39,6 +39,7 @@ body{
   border: 1px solid #FFF;
   width: 45px;
   height: 45px;
+  overflow: hidden;
 }
 .Row {
   display: flex;
@@ -46,7 +47,7 @@ body{
 }
 
 .green{
-  background-color: green;  
+  background-color: green;
 }
 .red{
   background-color: red;

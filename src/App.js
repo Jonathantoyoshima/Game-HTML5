@@ -6,18 +6,38 @@ class Board extends Component {
   constructor(props){
     super(props);
     this.state = {
+      selected: null,
       isWhitePlayer: true,
-      squares: "D1",
+      King: "D1",
+      Queen:"E1",
       options: Array(0),
-      squares2: "D8",
+      King2: "D8",
+      Queen2:"E8",
       options2: Array(0)
     };
   }
-  handleClick(evt, i){
+  handleClick(i){
     console.log(i);
-    var o1,o2,o3,o4,o5,o6,o7,o8;
+    var idx,oCol,oRow, o1,o2,o3,o4,o5,o6,o7,o8, opt = new Array();
     if (this.state.isWhitePlayer) {
-      if(i === this.state.squares){
+      if(i === this.state.Queen){
+        oCol = i.split("")[0];
+        oRow = Number(i.split("")[1]);
+        for (idx = (oRow + 1); idx <= 8; idx++) {
+          opt.push(oCol + idx);
+        }
+        for (idx = oRow - 1; idx >= 0; idx--) {
+          opt.push(oCol + idx);
+        }
+        for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
+           opt.push(row[idx] + oRow);
+        }
+        for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
+           opt.push(row[idx] + oRow);
+        }
+        this.setState({options:opt, selected:"Queen"})
+      }
+      if(i === this.state.King){
         o1 = row[row.indexOf(i.split("")[0]) - 1] + (Number(i.split("")[1]) - 1);
         o2 = row[row.indexOf(i.split("")[0]) - 1] + (Number(i.split("")[1]) + 0);
         o3 = row[row.indexOf(i.split("")[0]) - 1] + (Number(i.split("")[1]) + 1);
@@ -26,14 +46,46 @@ class Board extends Component {
         o6 = row[row.indexOf(i.split("")[0]) + 1] + (Number(i.split("")[1]) - 1);
         o7 = row[row.indexOf(i.split("")[0]) + 1] + (Number(i.split("")[1]) + 0);
         o8 = row[row.indexOf(i.split("")[0]) + 1] + (Number(i.split("")[1]) + 1);
-        this.setState({options:[o1, o2, o3, o4, o5, o6, o7, o8]});
+        if(o1 !== this.state.Queen){
+          opt.push(o1);
+        }
+        if(o2 !== this.state.Queen){
+          opt.push(o2);
+        }
+        if(o3 !== this.state.Queen){
+          opt.push(o3);
+        }
+        if(o4 !== this.state.Queen){
+          opt.push(o4);
+        }
+        if(o5 !== this.state.Queen){
+          opt.push(o5);
+        }
+        if(o6 !== this.state.Queen){
+          opt.push(o6);
+        }
+        if(o7 !== this.state.Queen){
+          opt.push(o7);
+        }
+        if(o8 !== this.state.Queen){
+          opt.push(o8);
+        }
+        this.setState({options:opt});
       };
 
       if(this.state.options.includes(i)) {
-        this.setState({isWhitePlayer:false, squares:i, options:[]});
+        switch (this.state.selected) {
+          case "Queen":
+            this.setState({isWhitePlayer:false, Queen:i, options:[]});
+            break;
+          default:
+          this.setState({isWhitePlayer:false, King:i, options:[]});
+
+        }
+
       };
     }else {
-      if(i === this.state.squares2){
+      if(i === this.state.King2){
         o1 = row[row.indexOf(i.split("")[0]) - 1] + (Number(i.split("")[1]) - 1);
         o2 = row[row.indexOf(i.split("")[0]) - 1] + (Number(i.split("")[1]) + 0);
         o3 = row[row.indexOf(i.split("")[0]) - 1] + (Number(i.split("")[1]) + 1);
@@ -42,26 +94,70 @@ class Board extends Component {
         o6 = row[row.indexOf(i.split("")[0]) + 1] + (Number(i.split("")[1]) - 1);
         o7 = row[row.indexOf(i.split("")[0]) + 1] + (Number(i.split("")[1]) + 0);
         o8 = row[row.indexOf(i.split("")[0]) + 1] + (Number(i.split("")[1]) + 1);
-        console.log(this.state.squares2)
-        this.setState({options2:[o1, o2, o3, o4, o5, o6, o7, o8]});
+        if(o1 !== this.state.Queen2){
+          opt.push(o1);
+        }
+        if(o2 !== this.state.Queen2){
+          opt.push(o2);
+        }
+        if(o3 !== this.state.Queen2){
+          opt.push(o3);
+        }
+        if(o4 !== this.state.Queen2){
+          opt.push(o4);
+        }
+        if(o5 !== this.state.Queen2){
+          opt.push(o5);
+        }
+        if(o6 !== this.state.Queen2){
+          opt.push(o6);
+        }
+        if(o7 !== this.state.Queen2){
+          opt.push(o7);
+        }
+        if(o8 !== this.state.Queen2){
+          opt.push(o8);
+        }
+        this.setState({options2:opt});
       };
 
 
       if(this.state.options2.includes(i)) {
-        this.setState({isWhitePlayer:true, squares2:i, options2:[]})
+        this.setState({isWhitePlayer:true, King2:i, options2:[]})
       };
     }
   }
   renderSquare(i){
-    var color;
-    if(i === this.state.squares){
-      color = "red";
-    } else if(i === this.state.squares2) {
+    var color, piece;
+    switch (i) {
+      case this.state.King:
+        color = "red";
+        piece = "KING";
+        break;
+      case this.state.King2:
+          color = "blue";
+          piece = "KING";
+          break;
+      case this.state.Queen:
+        color = "red";
+        piece = "Queen";
+        break;
+      case this.state.Queen2:
         color = "blue";
-    } else if(this.state.options.includes(i) || this.state.options2.includes(i)){
-      color = "green";
+        piece = "Queen";
+        break;
+      default:
+      if(this.state.options.includes(i) || this.state.options2.includes(i)){
+        color = "green";
+      }
+
     }
-      return (<div pos={i} className={"Square " + color} onClick={(evt)=>this.handleClick(evt,i)}/>);
+      return (
+      <div
+        className={"Square " + color}
+        onClick={(evt)=>this.handleClick(i)}>
+        {piece}
+      </div>);
   }
   render () {
     const status = 'Next player: ' + (this.state.isWhitePlayer ? 'White' : 'Black');
