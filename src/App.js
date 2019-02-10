@@ -18,22 +18,67 @@ class Board extends Component {
   }
   handleClick(i){
     console.log(i);
-    var idx,oCol,oRow, o1,o2,o3,o4,o5,o6,o7,o8, opt = new Array();
+    var idx,idx2,o1,o2,o3,o4,o5,o6,o7,o8,
+        opt = new Array(),
+        oCol = i.split("")[0],
+        oRow = Number(i.split("")[1]);
     if (this.state.isWhitePlayer) {
       if(i === this.state.Queen){
-        oCol = i.split("")[0];
-        oRow = Number(i.split("")[1]);
         for (idx = (oRow + 1); idx <= 8; idx++) {
-          opt.push(oCol + idx);
+          if((String(oCol + idx)) === this.state.King){break;}
+          opt.push(String(oCol + idx));
+          if((String(oCol + idx)) === this.state.King2){break;}
+          if((String(oCol + idx)) === this.state.Queen2){break;}
         }
         for (idx = oRow - 1; idx >= 0; idx--) {
-          opt.push(oCol + idx);
+          if(String(oCol + idx) === this.state.King){break;}
+          opt.push(String(oCol + idx));
+          if(String(oCol + idx) === this.state.King2){break;}
+          if(String(oCol + idx) === this.state.Queen2){break;}
         }
         for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
+           if((String(row[idx] + oRow)) === this.state.King){break;}
            opt.push(row[idx] + oRow);
+           if((String(row[idx] + oRow)) === this.state.King2){break;}
+           if((String(row[idx] + oRow)) === this.state.Queen2){break;}
         }
         for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
+           if((String(row[idx] + oRow)) === this.state.King){break;}
            opt.push(row[idx] + oRow);
+           if((String(row[idx] + oRow)) === this.state.King2){break;}
+           if((String(row[idx] + oRow)) === this.state.Queen2){break;}
+        }
+        idx2 = oRow;
+        for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
+          idx2++;
+          if(String(row[idx] + (idx2)) === this.state.King){break;}
+          opt.push(row[idx] + (idx2));
+          if(String(row[idx] + (idx2)) === this.state.King2){break;}
+          if(String(row[idx] + (idx2)) === this.state.Queen2){break;}
+        }
+        idx2 = oRow;
+        for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
+          idx2--;
+          if(String(row[idx] + (idx2)) === this.state.King){break;}
+          opt.push(row[idx] + (idx2));
+          if(String(row[idx] + (idx2)) === this.state.King2){break;}
+          if(String(row[idx] + (idx2)) === this.state.Queen2){break;}
+        }
+        idx2 = oRow;
+        for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
+          idx2++;
+           if((String(row[idx] + idx2)) === this.state.King){break;}
+           opt.push(row[idx] + idx2);
+           if((String(row[idx] + idx2)) === this.state.King2){break;}
+           if((String(row[idx] + idx2)) === this.state.Queen2){break;}
+        }
+        idx2 = oRow;
+        for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
+          idx2--;
+           if((String(row[idx] + idx2)) === this.state.King){break;}
+           opt.push(row[idx] + idx2);
+           if((String(row[idx] + idx2)) === this.state.King2){break;}
+           if((String(row[idx] + idx2)) === this.state.Queen2){break;}
         }
         this.setState({options:opt, selected:"Queen"})
       }
@@ -46,31 +91,15 @@ class Board extends Component {
         o6 = row[row.indexOf(i.split("")[0]) + 1] + (Number(i.split("")[1]) - 1);
         o7 = row[row.indexOf(i.split("")[0]) + 1] + (Number(i.split("")[1]) + 0);
         o8 = row[row.indexOf(i.split("")[0]) + 1] + (Number(i.split("")[1]) + 1);
-        if(o1 !== this.state.Queen){
-          opt.push(o1);
-        }
-        if(o2 !== this.state.Queen){
-          opt.push(o2);
-        }
-        if(o3 !== this.state.Queen){
-          opt.push(o3);
-        }
-        if(o4 !== this.state.Queen){
-          opt.push(o4);
-        }
-        if(o5 !== this.state.Queen){
-          opt.push(o5);
-        }
-        if(o6 !== this.state.Queen){
-          opt.push(o6);
-        }
-        if(o7 !== this.state.Queen){
-          opt.push(o7);
-        }
-        if(o8 !== this.state.Queen){
-          opt.push(o8);
-        }
-        this.setState({options:opt});
+        if(o1 !== this.state.Queen){opt.push(o1);}
+        if(o2 !== this.state.Queen){opt.push(o2);}
+        if(o3 !== this.state.Queen){opt.push(o3);}
+        if(o4 !== this.state.Queen){opt.push(o4);}
+        if(o5 !== this.state.Queen){opt.push(o5);}
+        if(o6 !== this.state.Queen){opt.push(o6);}
+        if(o7 !== this.state.Queen){opt.push(o7);}
+        if(o8 !== this.state.Queen){opt.push(o8);}
+        this.setState({options:opt, selected:"King"});
       };
 
       if(this.state.options.includes(i)) {
@@ -78,13 +107,72 @@ class Board extends Component {
           case "Queen":
             this.setState({isWhitePlayer:false, Queen:i, options:[]});
             break;
-          default:
-          this.setState({isWhitePlayer:false, King:i, options:[]});
-
+          case "King":
+            this.setState({isWhitePlayer:false, King:i, options:[]});
+            break;
         }
-
       };
-    }else {
+    }else{
+      if(i === this.state.Queen2){
+        for (idx = (oRow + 1); idx <= 8; idx++) {
+          if((String(oCol + idx)) === this.state.King2){break;}
+          opt.push(String(oCol + idx));
+          if((String(oCol + idx)) === this.state.King){break;}
+          if((String(oCol + idx)) === this.state.Queen){break;}
+        }
+        for (idx = oRow - 1; idx >= 0; idx--) {
+          if(String(oCol + idx) === this.state.King2){break;}
+          opt.push(String(oCol + idx));
+          if(String(oCol + idx) === this.state.King){break;}
+          if(String(oCol + idx) === this.state.Queen){break;}
+        }
+        for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
+           if((String(row[idx] + oRow)) === this.state.King2){break;}
+           opt.push(row[idx] + oRow);
+           if((String(row[idx] + oRow)) === this.state.King){break;}
+           if((String(row[idx] + oRow)) === this.state.Queen){break;}
+        }
+        for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
+           if((String(row[idx] + oRow)) === this.state.King2){break;}
+           opt.push(row[idx] + oRow);
+           if((String(row[idx] + oRow)) === this.state.King){break;}
+           if((String(row[idx] + oRow)) === this.state.Queen){break;}
+        }
+        idx2 = oRow;
+        for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
+          idx2++;
+          if(String(row[idx] + (idx2)) === this.state.King2){break;}
+          opt.push(row[idx] + (idx2));
+          if(String(row[idx] + (idx2)) === this.state.King){break;}
+          if(String(row[idx] + (idx2)) === this.state.Queen){break;}
+        }
+        idx2 = oRow;
+        for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
+          idx2--;
+          if(String(row[idx] + (idx2)) === this.state.King2){break;}
+          opt.push(row[idx] + (idx2));
+          if(String(row[idx] + (idx2)) === this.state.King){break;}
+          if(String(row[idx] + (idx2)) === this.state.Queen){break;}
+        }
+        idx2 = oRow;
+        for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
+          idx2++;
+           if((String(row[idx] + idx2)) === this.state.King2){break;}
+           opt.push(row[idx] + idx2);
+           if((String(row[idx] + idx2)) === this.state.King){break;}
+           if((String(row[idx] + idx2)) === this.state.Queen){break;}
+        }
+        idx2 = oRow;
+        for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
+          idx2--;
+           if((String(row[idx] + idx2)) === this.state.King2){break;}
+           opt.push(row[idx] + idx2);
+           if((String(row[idx] + idx2)) === this.state.King){break;}
+           if((String(row[idx] + idx2)) === this.state.Queen){break;}
+        }
+        this.setState({options2:opt, selected:"Queen2"})
+      }
+
       if(i === this.state.King2){
         o1 = row[row.indexOf(i.split("")[0]) - 1] + (Number(i.split("")[1]) - 1);
         o2 = row[row.indexOf(i.split("")[0]) - 1] + (Number(i.split("")[1]) + 0);
@@ -118,12 +206,18 @@ class Board extends Component {
         if(o8 !== this.state.Queen2){
           opt.push(o8);
         }
-        this.setState({options2:opt});
+        this.setState({options2:opt, selected:"King2"});
       };
-
-
       if(this.state.options2.includes(i)) {
-        this.setState({isWhitePlayer:true, King2:i, options2:[]})
+        switch(this.state.selected) {
+          case "Queen2":
+            this.setState({isWhitePlayer: true, Queen2:i, options2:[]});
+            break;
+          case "King2":
+            this.setState({isWhitePlayer:true, King2:i, options2:[]});
+            break;
+        };
+        console.log(this.state.isWhitePlayer)
       };
     }
   }
