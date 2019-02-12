@@ -10,8 +10,8 @@ class Board extends Component {
       winner: null,
       isWhitePlayer: true,
       options: Array(0),
-      King: "D1",
-      Queen:"E1",
+      King: "E1",
+      Queen:"D1",
       Bishop1a:"C1",
       Bishop1b:"F1",
       Hook1a:"A1",
@@ -26,8 +26,9 @@ class Board extends Component {
       PawnA6:"F2",
       PawnA7:"G2",
       PawnA8:"H2",
-      King2: "D8",
-      Queen2:"E8",
+      QueenA1:"D5",
+      King2: "E8",
+      Queen2:"D8",
       Bishop2a:"C8",
       Bishop2b:"F8",
       Hook2a:"A8",
@@ -75,6 +76,7 @@ class Board extends Component {
     if(i===this.state.Knight2b){
       this.setState({Knight2b:null});
     }
+    if(i===this.state.PawnB1){this.setState({PawnB1:null});}
     if(i===this.state.PawnB2){this.setState({PawnB2:null});}
     if(i===this.state.PawnB3){this.setState({PawnB3:null});}
     if(i===this.state.PawnB4){this.setState({PawnB4:null});}
@@ -110,6 +112,7 @@ class Board extends Component {
     if(i===this.state.Knight1b){
       this.setState({Knight1b:null});
     }
+    if(i===this.state.QueenA1){this.setState({QueenA1:null});}
     if(i===this.state.PawnA1){this.setState({PawnA1:null});}
     if(i===this.state.PawnA2){this.setState({PawnA2:null});}
     if(i===this.state.PawnA3){this.setState({PawnA3:null});}
@@ -147,6 +150,7 @@ WhitePieces(pos){
     case this.state.Knight1b:
       findWhite = true;
       break;
+    case this.state.QueenA1: findWhite=true;break;
     case this.state.PawnA1: findWhite=true;break;
     case this.state.PawnA2: findWhite=true;break;
     case this.state.PawnA3: findWhite=true;break;
@@ -203,11 +207,20 @@ BlackPieces(pos){
   }
   return findBlack;
 }
+buildQueen(i){
+  this.setState({PawnA1:null, QueenA1: i});
+}
 PawnOptions(i){
   if(this.BlackPieces(i)){this.checkPieces(i)};
+  if(Number(i.split("")[1])===8){
+    this.buildQueen(i);
+  }
 }
 PawnBOptions(i){
   if(this.WhitePieces(i)){this.checkPieces2(i)};
+  if(Number(i.split("")[1])===8){
+    this.buildQueen(i);
+  }
 }
 movePawn(oRow, oCol, piece){
   var opt = Array(0);
@@ -406,6 +419,58 @@ moveDiagonal(oRow, oCol, piece){
       this.setState({options:opt, selected:piece});
     }
 
+  moveQueen(oRow, oCol, piece){
+    var idx, idx2, opt=Array(0);
+    for (idx = (oRow + 1); idx <= 8; idx++) {
+      if(this.WhitePieces(oCol + idx)){break;};
+      opt.push(String(oCol + idx));
+      if(this.BlackPieces(oCol + idx)){break;};
+    }
+    for (idx = oRow - 1; idx >= 0; idx--) {
+      if(this.WhitePieces(oCol + idx)){break;};
+      opt.push(String(oCol + idx));
+      if(this.BlackPieces(oCol + idx)){break;};
+    }
+    for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
+      if(this.WhitePieces(row[idx] + oRow)){break;};
+      opt.push(String(row[idx] + oRow));
+      if(this.BlackPieces(row[idx] + oRow)){break;};
+    }
+    for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
+      if(this.WhitePieces(row[idx] + oRow)){break;};
+      opt.push(String(row[idx] + oRow));
+      if(this.BlackPieces(row[idx] + oRow)){break;};
+    }
+    idx2 = oRow;
+    for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
+      idx2++;
+      if(this.WhitePieces(row[idx] + (idx2))){break;};
+      opt.push(String(row[idx] + (idx2)));
+      if(this.BlackPieces(row[idx] + (idx2))){break;};
+      }
+    idx2 = oRow;
+    for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
+      idx2--;
+      if(this.WhitePieces(row[idx] + (idx2))){break;};
+      opt.push(String(row[idx] + (idx2)));
+      if(this.BlackPieces(row[idx] + (idx2))){break;};
+    }
+    idx2 = oRow;
+    for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
+      idx2++;
+      if(this.WhitePieces(row[idx] + (idx2))){break;};
+      opt.push(String(row[idx] + (idx2)));
+      if(this.BlackPieces(row[idx] + (idx2))){break;};
+    }
+    idx2 = oRow;
+    for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
+      idx2--;
+      if(this.WhitePieces(row[idx] + (idx2))){break;};
+      opt.push(String(row[idx] + (idx2)));
+      if(this.BlackPieces(row[idx] + (idx2))){break;};
+    }
+    this.setState({options:opt, selected:piece})
+  }
   handleClick(i){
     console.log(i);
     var idx,idx2,o1,o2,o3,o4,o5,o6,o7,o8,
@@ -413,6 +478,10 @@ moveDiagonal(oRow, oCol, piece){
         oCol = i.split("")[0],
         oRow = Number(i.split("")[1]);
     if (this.state.isWhitePlayer) {
+      if(i === this.state.QueenA1){
+        console.log("OI?")
+        this.moveQueen(oRow, oCol, "QueenA1");
+      }
       if(i === this.state.PawnA1){this.movePawn(oRow, oCol, "PawnA1")};
       if(i === this.state.PawnA2){this.movePawn(oRow, oCol, "PawnA2")};
       if(i === this.state.PawnA3){this.movePawn(oRow, oCol, "PawnA3")};
@@ -440,55 +509,7 @@ moveDiagonal(oRow, oCol, piece){
         this.moveDiagonal(oRow, oCol, "Bishop1b");
       }
       if(i === this.state.Queen){
-        for (idx = (oRow + 1); idx <= 8; idx++) {
-          if(this.WhitePieces(oCol + idx)){break;};
-          opt.push(String(oCol + idx));
-          if(this.BlackPieces(oCol + idx)){break;};
-        }
-        for (idx = oRow - 1; idx >= 0; idx--) {
-          if(this.WhitePieces(oCol + idx)){break;};
-          opt.push(String(oCol + idx));
-          if(this.BlackPieces(oCol + idx)){break;};
-        }
-        for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
-          if(this.WhitePieces(row[idx] + oRow)){break;};
-          opt.push(String(row[idx] + oRow));
-          if(this.BlackPieces(row[idx] + oRow)){break;};
-        }
-        for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
-          if(this.WhitePieces(row[idx] + oRow)){break;};
-          opt.push(String(row[idx] + oRow));
-          if(this.BlackPieces(row[idx] + oRow)){break;};
-        }
-        idx2 = oRow;
-        for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
-          idx2++;
-          if(this.WhitePieces(row[idx] + (idx2))){break;};
-          opt.push(String(row[idx] + (idx2)));
-          if(this.BlackPieces(row[idx] + (idx2))){break;};
-          }
-        idx2 = oRow;
-        for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
-          idx2--;
-          if(this.WhitePieces(row[idx] + (idx2))){break;};
-          opt.push(String(row[idx] + (idx2)));
-          if(this.BlackPieces(row[idx] + (idx2))){break;};
-        }
-        idx2 = oRow;
-        for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
-          idx2++;
-          if(this.WhitePieces(row[idx] + (idx2))){break;};
-          opt.push(String(row[idx] + (idx2)));
-          if(this.BlackPieces(row[idx] + (idx2))){break;};
-        }
-        idx2 = oRow;
-        for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
-          idx2--;
-          if(this.WhitePieces(row[idx] + (idx2))){break;};
-          opt.push(String(row[idx] + (idx2)));
-          if(this.BlackPieces(row[idx] + (idx2))){break;};
-        }
-        this.setState({options:opt, selected:"Queen"})
+        this.moveQueen(oRow,oCol, "Queen");
       }
       if(i === this.state.King){
         o1 = row[row.indexOf(i.split("")[0]) - 1] + (Number(i.split("")[1]) - 1);
@@ -545,10 +566,8 @@ moveDiagonal(oRow, oCol, piece){
             this.checkPieces(i);
             this.setState({isWhitePlayer:false, Bishop1b:i, options:[]});
             break;
-          case "Queen":
-            this.checkPieces(i);
-            this.setState({isWhitePlayer:false, Queen:i, options:[]});
-            break;
+          case "Queen": this.checkPieces(i); this.setState({isWhitePlayer:false, Queen:i, options:[]}); break;
+          case "QueenA1": this.checkPieces(i); this.setState({isWhitePlayer:false, QueenA1:i, options:[]}); break;
           case "King":
             this.checkPieces(i);
             this.setState({isWhitePlayer:false, King:i, options:[]});
@@ -706,6 +725,7 @@ moveDiagonal(oRow, oCol, piece){
   renderSquare(i){
     var color, piece;
     switch (i) {
+      case this.state.QueenA1: color = "red"; piece = "Queen"; break;
       case this.state.PawnA1: color = "red"; piece = "Pawn"; break;
       case this.state.PawnA2: color = "red"; piece = "Pawn"; break;
       case this.state.PawnA3: color = "red"; piece = "Pawn"; break;
@@ -722,71 +742,22 @@ moveDiagonal(oRow, oCol, piece){
       case this.state.PawnB6: color = "blue"; piece = "Pawn"; break;
       case this.state.PawnB7: color = "blue"; piece = "Pawn"; break;
       case this.state.PawnB8: color = "blue"; piece = "Pawn"; break;
-      case this.state.Knight1a:
-        color = "red";
-        piece = "Knight";
-        break;
-      case this.state.Knight1b:
-        color = "red";
-        piece = "Knight";
-        break;
-      case this.state.Knight2a:
-        color = "blue";
-        piece = "Knight";
-        break;
-      case this.state.Knight2b:
-        color = "blue";
-        piece = "Knight";
-        break;
-
-      case this.state.Hook1a:
-        color = "red";
-        piece = "Hook";
-        break;
-      case this.state.Hook1b:
-        color = "red";
-        piece = "Hook";
-        break;
-      case this.state.Bishop1a:
-        color = "red";
-        piece = "Bishop";
-        break;
-      case this.state.Bishop1b:
-          color = "red";
-          piece = "Bishop";
-          break;
-      case this.state.Bishop2a:
-        color = "blue";
-        piece = "Bishop";
-        break;
-      case this.state.Bishop2b:
-          color = "blue";
-          piece = "Bishop";
-          break;
-      case this.state.Hook2a:
-          color = "blue";
-          piece = "Hook";
-          break;
-      case this.state.Hook2b:
-          color = "blue";
-          piece = "Hook";
-          break;
-      case this.state.King:
-        color = "red";
-        piece = "KING";
-        break;
-      case this.state.King2:
-          color = "blue";
-          piece = "KING";
-          break;
-      case this.state.Queen:
-        color = "red";
-        piece = "Queen";
-        break;
-      case this.state.Queen2:
-        color = "blue";
-        piece = "Queen";
-        break;
+      case this.state.Knight1a:color = "red";piece = "Knight";break;
+      case this.state.Knight1b:color = "red";piece = "Knight";break;
+      case this.state.Knight2a:color = "blue";piece = "Knight";break;
+      case this.state.Knight2b:color = "blue";piece = "Knight";break;
+      case this.state.Hook1a:color = "red";piece = "Hook";break;
+      case this.state.Hook1b:color = "red";piece = "Hook";break;
+      case this.state.Bishop1a:color = "red";piece = "Bishop";break;
+      case this.state.Bishop1b:color = "red";piece = "Bishop";break;
+      case this.state.Bishop2a:color = "blue";piece = "Bishop";break;
+      case this.state.Bishop2b:color = "blue";piece = "Bishop";break;
+      case this.state.Hook2a:color = "blue";piece = "Hook";break;
+      case this.state.Hook2b:color = "blue";piece = "Hook";break;
+      case this.state.King:color = "red";piece = "KING";break;
+      case this.state.King2:color = "blue";piece = "KING";break;
+      case this.state.Queen:color = "red";piece = "Queen";break;
+      case this.state.Queen2:color = "blue";piece = "Queen";break;
       default:
       if(this.state.options.includes(i) || this.state.options.includes(i)){
         color = "green";
