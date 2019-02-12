@@ -14,10 +14,14 @@ class Board extends Component {
       Queen:"E1",
       Bishop1a:"C1",
       Bishop1b:"F1",
+      Hook1a:"A1",
+      Hook1b:"H1",
       King2: "D8",
       Queen2:"E8",
       Bishop2a:"C8",
       Bishop2b:"F8",
+      Hook2a:"A8",
+      Hook2b:"H8",
     };
   }
   EndGame(winner) {
@@ -39,6 +43,12 @@ class Board extends Component {
     if(i===this.state.Bishop2b){
       this.setState({Bishop2b:null});
     }
+    if(i===this.state.Hook2a){
+      this.setState({Hook2a:null});
+    }
+    if(i===this.state.Hook2b){
+      this.setState({Hook2b:null});
+    }
   }
   checkPieces2(i){
     if(i===this.state.King){
@@ -53,6 +63,12 @@ class Board extends Component {
     }
     if(i===this.state.Bishop1b){
       this.setState({Bishop1b:null});
+    }
+    if(i===this.state.Hook1a){
+      this.setState({Hook1a:null});
+    }
+    if(i===this.state.Hook1b){
+      this.setState({Hook1b:null});
     }
   }
 
@@ -69,6 +85,12 @@ WhitePieces(pos){
       findWhite = true;
       break;
     case this.state.Bishop1b:
+      findWhite = true;
+      break;
+    case this.state.Hook1a:
+      findWhite = true;
+      break;
+    case this.state.Hook1b:
       findWhite = true;
       break;
     default:
@@ -91,6 +113,12 @@ BlackPieces(pos){
       findBlack = true;
       break;
     case this.state.Bishop2b:
+      findBlack = true;
+      break;
+    case this.state.Hook2a:
+      findBlack = true;
+      break;
+    case this.state.Hook2b:
       findBlack = true;
       break;
     default:
@@ -130,6 +158,56 @@ moveDiagonal(oRow, oCol, piece){
       if(this.WhitePieces(row[idx] + (idx2))){break;};
       opt.push(row[idx] + (idx2));
       if(this.BlackPieces(row[idx] + (idx2))){break;};
+    }
+    this.setState({options:opt, selected:piece});
+  }
+  moveStraight(oRow, oCol, piece){
+    var idx,
+    opt = Array(0);
+    for (idx = (oRow + 1); idx <= 8; idx++) {
+      if(this.WhitePieces(oCol + idx)){break;};
+      opt.push(String(oCol + idx));
+      if(this.BlackPieces(oCol + idx)){break;};
+    }
+    for (idx = oRow - 1; idx >= 0; idx--) {
+      if(this.WhitePieces(oCol + idx)){break;};
+      opt.push(String(oCol + idx));
+      if(this.BlackPieces(oCol + idx)){break;};
+    }
+    for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
+      if(this.WhitePieces(row[idx] + oRow)){break;};
+      opt.push(String(row[idx] + oRow));
+      if(this.BlackPieces(row[idx] + oRow)){break;};
+    }
+    for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
+      if(this.WhitePieces(row[idx] + oRow)){break;};
+      opt.push(String(row[idx] + oRow));
+      if(this.BlackPieces(row[idx] + oRow)){break;};
+    }
+    this.setState({options:opt, selected:piece});
+  }
+  moveStraight2(oRow, oCol, piece){
+    var idx,
+    opt = Array(0);
+    for (idx = (oRow + 1); idx <= 8; idx++) {
+      if(this.BlackPieces(oCol + idx)){break;};
+      opt.push(String(oCol + idx));
+      if(this.WhitePieces(oCol + idx)){break;};
+    }
+    for (idx = oRow - 1; idx >= 0; idx--) {
+      if(this.BlackPieces(oCol + idx)){break;};
+      opt.push(String(oCol + idx));
+      if(this.WhitePieces(oCol + idx)){break;};
+    }
+    for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
+      if(this.BlackPieces(row[idx] + oRow)){break;};
+      opt.push(String(row[idx] + oRow));
+      if(this.WhitePieces(row[idx] + oRow)){break;};
+    }
+    for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
+      if(this.BlackPieces(row[idx] + oRow)){break;};
+      opt.push(String(row[idx] + oRow));
+      if(this.WhitePieces(row[idx] + oRow)){break;};
     }
     this.setState({options:opt, selected:piece});
   }
@@ -174,6 +252,12 @@ moveDiagonal(oRow, oCol, piece){
         oCol = i.split("")[0],
         oRow = Number(i.split("")[1]);
     if (this.state.isWhitePlayer) {
+      if(i === this.state.Hook1a){
+        this.moveStraight(oRow, oCol, "Hook1a")
+      }
+      if(i === this.state.Hook1b){
+        this.moveStraight(oRow, oCol, "Hook1b")
+      }
       if(i === this.state.Bishop1a){
         this.moveDiagonal(oRow, oCol, "Bishop1a");
       }
@@ -192,14 +276,14 @@ moveDiagonal(oRow, oCol, piece){
           if(this.BlackPieces(oCol + idx)){break;};
         }
         for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
-          if(this.WhitePieces(oCol + idx)){break;};
-          opt.push(String(oCol + idx));
-          if(this.BlackPieces(oCol + idx)){break;};
+          if(this.WhitePieces(row[idx] + oRow)){break;};
+          opt.push(String(row[idx] + oRow));
+          if(this.BlackPieces(row[idx] + oRow)){break;};
         }
         for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
-          if(this.WhitePieces(oCol + idx)){break;};
-          opt.push(String(oCol + idx));
-          if(this.BlackPieces(oCol + idx)){break;};
+          if(this.WhitePieces(row[idx] + oRow)){break;};
+          opt.push(String(row[idx] + oRow));
+          if(this.BlackPieces(row[idx] + oRow)){break;};
         }
         idx2 = oRow;
         for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
@@ -253,6 +337,14 @@ moveDiagonal(oRow, oCol, piece){
 
       if(this.state.options.includes(i)) {
         switch (this.state.selected) {
+          case "Hook1a":
+            this.checkPieces(i);
+            this.setState({isWhitePlayer:false, Hook1a:i, options:[]});
+            break;
+          case "Hook1b":
+            this.checkPieces(i);
+            this.setState({isWhitePlayer:false, Hook1b:i, options:[]});
+            break;
           case "Bishop1a":
             this.checkPieces(i);
             this.setState({isWhitePlayer:false, Bishop1a:i, options:[]});
@@ -273,6 +365,12 @@ moveDiagonal(oRow, oCol, piece){
         }
       };
     }else{
+      if(i === this.state.Hook2a){
+        this.moveStraight2(oRow, oCol, "Hook2a");
+      }
+      if(i === this.state.Hook2b){
+        this.moveStraight2(oRow, oCol, "Hook2b");
+      }
       if(i === this.state.Bishop2a){
         this.moveDiagonal2(oRow, oCol, "Bishop2a");
       }
@@ -291,14 +389,14 @@ moveDiagonal(oRow, oCol, piece){
           if(this.WhitePieces(oCol + idx)){break;};
         }
         for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
-          if(this.BlackPieces(oCol + idx)){break;};
-          opt.push(String(oCol + idx));
-          if(this.WhitePieces(oCol + idx)){break;};
+          if(this.BlackPieces(row[idx] + oRow)){break;};
+          opt.push(String(row[idx] + oRow));
+          if(this.WhitePieces(row[idx] + oRow)){break;};
         }
         for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
-          if(this.BlackPieces(oCol + idx)){break;};
-          opt.push(String(oCol + idx));
-          if(this.WhitePieces(oCol + idx)){break;};
+          if(this.BlackPieces(row[idx] + oRow)){break;};
+          opt.push(String(row[idx] + oRow));
+          if(this.WhitePieces(row[idx] + oRow)){break;};
         }
         idx2 = oRow;
         for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
@@ -361,7 +459,14 @@ moveDiagonal(oRow, oCol, piece){
             this.checkPieces2(i);
             this.setState({isWhitePlayer:true, Bishop2b:i, options:[]});
             break;
-
+          case "Hook2a":
+            this.checkPieces2(i);
+            this.setState({isWhitePlayer:true, Hook2a:i, options:[]});
+            break;
+          case "Hook2b":
+            this.checkPieces2(i);
+            this.setState({isWhitePlayer:true, Hook2b:i, options:[]});
+            break;
           case "Queen2":
             this.checkPieces2(i);
             this.setState({isWhitePlayer: true, Queen2:i, options:[]});
@@ -378,6 +483,14 @@ moveDiagonal(oRow, oCol, piece){
   renderSquare(i){
     var color, piece;
     switch (i) {
+      case this.state.Hook1a:
+        color = "red";
+        piece = "Hook";
+        break;
+      case this.state.Hook1b:
+        color = "red";
+        piece = "Hook";
+        break;
       case this.state.Bishop1a:
         color = "red";
         piece = "Bishop";
@@ -393,6 +506,14 @@ moveDiagonal(oRow, oCol, piece){
       case this.state.Bishop2b:
           color = "blue";
           piece = "Bishop";
+          break;
+      case this.state.Hook2a:
+          color = "blue";
+          piece = "Hook";
+          break;
+      case this.state.Hook2b:
+          color = "blue";
+          piece = "Hook";
           break;
       case this.state.King:
         color = "red";
