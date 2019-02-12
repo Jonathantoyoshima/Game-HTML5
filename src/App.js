@@ -16,12 +16,16 @@ class Board extends Component {
       Bishop1b:"F1",
       Hook1a:"A1",
       Hook1b:"H1",
+      Knight1a:"B1",
+      Knight1b:"G1",
       King2: "D8",
       Queen2:"E8",
       Bishop2a:"C8",
       Bishop2b:"F8",
       Hook2a:"A8",
       Hook2b:"H8",
+      Knight2a:"B8",
+      Knight2b:"G8",
     };
   }
   EndGame(winner) {
@@ -49,6 +53,12 @@ class Board extends Component {
     if(i===this.state.Hook2b){
       this.setState({Hook2b:null});
     }
+    if(i===this.state.Knight2a){
+      this.setState({Knight2a:null});
+    }
+    if(i===this.state.Knight2b){
+      this.setState({Knight2b:null});
+    }
   }
   checkPieces2(i){
     if(i===this.state.King){
@@ -69,6 +79,12 @@ class Board extends Component {
     }
     if(i===this.state.Hook1b){
       this.setState({Hook1b:null});
+    }
+    if(i===this.state.Knight1a){
+      this.setState({Knight1a:null});
+    }
+    if(i===this.state.Knight1b){
+      this.setState({Knight1b:null});
     }
   }
 
@@ -91,6 +107,12 @@ WhitePieces(pos){
       findWhite = true;
       break;
     case this.state.Hook1b:
+      findWhite = true;
+      break;
+    case this.state.Knight1a:
+      findWhite = true;
+      break;
+    case this.state.Knight1b:
       findWhite = true;
       break;
     default:
@@ -121,6 +143,12 @@ BlackPieces(pos){
     case this.state.Hook2b:
       findBlack = true;
       break;
+    case this.state.Knight2a:
+      findBlack = true;
+      break;
+    case this.state.Knight2b:
+      findBlack = true;
+      break;
     default:
       findBlack = false;
 
@@ -128,6 +156,46 @@ BlackPieces(pos){
   return findBlack;
 }
 
+moveL(oRow, oCol, piece){
+  var pos, opt = Array(0);
+  pos = String(row[row.indexOf(oCol) + 1] + (oRow + 2));
+  if(!this.WhitePieces(pos)){opt.push(pos)};
+  pos = String(row[row.indexOf(oCol) + 1] + (oRow - 2));
+  if(!this.WhitePieces(pos)){opt.push(pos)};
+  pos = String(row[row.indexOf(oCol) - 1] + (oRow + 2));
+  if(!this.WhitePieces(pos)){opt.push(pos)};
+  pos = String(row[row.indexOf(oCol) - 1] + (oRow - 2));
+  if(!this.WhitePieces(pos)){opt.push(pos)};
+  pos = String(row[row.indexOf(oCol) + 2] + (oRow + 1));
+  if(!this.WhitePieces(pos)){opt.push(pos)};
+  pos = String(row[row.indexOf(oCol) + 2] + (oRow - 1));
+  if(!this.WhitePieces(pos)){opt.push(pos)};
+  pos = String(row[row.indexOf(oCol) - 2] + (oRow + 1));
+  if(!this.WhitePieces(pos)){opt.push(pos)};
+  pos = String(row[row.indexOf(oCol) - 2] + (oRow - 1));
+  if(!this.WhitePieces(pos)){opt.push(pos)};
+  this.setState({options:opt, selected:piece});
+}
+moveL2(oRow, oCol, piece){
+  var pos, opt = Array(0);
+  pos = String(row[row.indexOf(oCol) + 1] + (oRow + 2));
+  if(!this.BlackPieces(pos)){opt.push(pos)};
+  pos = String(row[row.indexOf(oCol) + 1] + (oRow - 2));
+  if(!this.BlackPieces(pos)){opt.push(pos)};
+  pos = String(row[row.indexOf(oCol) - 1] + (oRow + 2));
+  if(!this.BlackPieces(pos)){opt.push(pos)};
+  pos = String(row[row.indexOf(oCol) - 1] + (oRow - 2));
+  if(!this.BlackPieces(pos)){opt.push(pos)};
+  pos = String(row[row.indexOf(oCol) + 2] + (oRow + 1));
+  if(!this.BlackPieces(pos)){opt.push(pos)};
+  pos = String(row[row.indexOf(oCol) + 2] + (oRow - 1));
+  if(!this.BlackPieces(pos)){opt.push(pos)};
+  pos = String(row[row.indexOf(oCol) - 2] + (oRow + 1));
+  if(!this.BlackPieces(pos)){opt.push(pos)};
+  pos = String(row[row.indexOf(oCol) - 2] + (oRow - 1));
+  if(!this.BlackPieces(pos)){opt.push(pos)};
+  this.setState({options:opt, selected:piece});
+}
 moveDiagonal(oRow, oCol, piece){
     var idx,
     opt = Array(0),
@@ -252,6 +320,12 @@ moveDiagonal(oRow, oCol, piece){
         oCol = i.split("")[0],
         oRow = Number(i.split("")[1]);
     if (this.state.isWhitePlayer) {
+      if(i === this.state.Knight1a){
+        this.moveL(oRow, oCol, "Knight1a")
+      }
+      if(i === this.state.Knight1b){
+        this.moveL(oRow, oCol, "Knight1b")
+      }
       if(i === this.state.Hook1a){
         this.moveStraight(oRow, oCol, "Hook1a")
       }
@@ -337,6 +411,14 @@ moveDiagonal(oRow, oCol, piece){
 
       if(this.state.options.includes(i)) {
         switch (this.state.selected) {
+          case "Knight1a":
+            this.checkPieces(i);
+            this.setState({isWhitePlayer:false, Knight1a:i, options:[]});
+            break;
+          case "Knight1b":
+            this.checkPieces(i);
+            this.setState({isWhitePlayer:false, Knight1b:i, options:[]});
+            break;
           case "Hook1a":
             this.checkPieces(i);
             this.setState({isWhitePlayer:false, Hook1a:i, options:[]});
@@ -365,6 +447,12 @@ moveDiagonal(oRow, oCol, piece){
         }
       };
     }else{
+      if(i === this.state.Knight2a){
+        this.moveL2(oRow, oCol, "Knight2a");
+      }
+      if(i === this.state.Knight2b){
+        this.moveL2(oRow, oCol, "Knight2b");
+      }
       if(i === this.state.Hook2a){
         this.moveStraight2(oRow, oCol, "Hook2a");
       }
@@ -451,6 +539,14 @@ moveDiagonal(oRow, oCol, piece){
       };
       if(this.state.options.includes(i)) {
         switch(this.state.selected) {
+          case "Knight2a":
+            this.checkPieces2(i);
+            this.setState({isWhitePlayer:true, Knight2a:i, options:[]});
+            break;
+          case "Knight2b":
+            this.checkPieces2(i);
+            this.setState({isWhitePlayer:true, Knight2b:i, options:[]});
+            break;
           case "Bishop2a":
             this.checkPieces2(i);
             this.setState({isWhitePlayer:true, Bishop2a:i, options:[]});
@@ -483,6 +579,23 @@ moveDiagonal(oRow, oCol, piece){
   renderSquare(i){
     var color, piece;
     switch (i) {
+      case this.state.Knight1a:
+        color = "red";
+        piece = "Knight";
+        break;
+      case this.state.Knight1b:
+        color = "red";
+        piece = "Knight";
+        break;
+      case this.state.Knight2a:
+        color = "blue";
+        piece = "Knight";
+        break;
+      case this.state.Knight2b:
+        color = "blue";
+        piece = "Knight";
+        break;
+
       case this.state.Hook1a:
         color = "red";
         piece = "Hook";
