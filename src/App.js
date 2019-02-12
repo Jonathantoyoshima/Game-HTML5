@@ -18,6 +18,14 @@ class Board extends Component {
       Hook1b:"H1",
       Knight1a:"B1",
       Knight1b:"G1",
+      PawnA1:"A2",
+      PawnA2:"B2",
+      PawnA3:"C2",
+      PawnA4:"D2",
+      PawnA5:"E2",
+      PawnA6:"F2",
+      PawnA7:"G2",
+      PawnA8:"H2",
       King2: "D8",
       Queen2:"E8",
       Bishop2a:"C8",
@@ -26,6 +34,14 @@ class Board extends Component {
       Hook2b:"H8",
       Knight2a:"B8",
       Knight2b:"G8",
+      PawnB1:"A7",
+      PawnB2:"B7",
+      PawnB3:"C7",
+      PawnB4:"D7",
+      PawnB5:"E7",
+      PawnB6:"F7",
+      PawnB7:"G7",
+      PawnB8:"H7",
     };
   }
   EndGame(winner) {
@@ -59,6 +75,14 @@ class Board extends Component {
     if(i===this.state.Knight2b){
       this.setState({Knight2b:null});
     }
+    if(i===this.state.PawnB2){this.setState({PawnB2:null});}
+    if(i===this.state.PawnB3){this.setState({PawnB3:null});}
+    if(i===this.state.PawnB4){this.setState({PawnB4:null});}
+    if(i===this.state.PawnB5){this.setState({PawnB5:null});}
+    if(i===this.state.PawnB6){this.setState({PawnB6:null});}
+    if(i===this.state.PawnB7){this.setState({PawnB7:null});}
+    if(i===this.state.PawnB8){this.setState({PawnB8:null});}
+
   }
   checkPieces2(i){
     if(i===this.state.King){
@@ -86,6 +110,14 @@ class Board extends Component {
     if(i===this.state.Knight1b){
       this.setState({Knight1b:null});
     }
+    if(i===this.state.PawnA1){this.setState({PawnA1:null});}
+    if(i===this.state.PawnA2){this.setState({PawnA2:null});}
+    if(i===this.state.PawnA3){this.setState({PawnA3:null});}
+    if(i===this.state.PawnA4){this.setState({PawnA4:null});}
+    if(i===this.state.PawnA5){this.setState({PawnA5:null});}
+    if(i===this.state.PawnA6){this.setState({PawnA6:null});}
+    if(i===this.state.PawnA7){this.setState({PawnA7:null});}
+    if(i===this.state.PawnA8){this.setState({PawnA8:null});}
   }
 
 WhitePieces(pos){
@@ -115,6 +147,14 @@ WhitePieces(pos){
     case this.state.Knight1b:
       findWhite = true;
       break;
+    case this.state.PawnA1: findWhite=true;break;
+    case this.state.PawnA2: findWhite=true;break;
+    case this.state.PawnA3: findWhite=true;break;
+    case this.state.PawnA4: findWhite=true;break;
+    case this.state.PawnA5: findWhite=true;break;
+    case this.state.PawnA6: findWhite=true;break;
+    case this.state.PawnA7: findWhite=true;break;
+    case this.state.PawnA8: findWhite=true;break;
     default:
       findWhite = false;
 
@@ -149,13 +189,66 @@ BlackPieces(pos){
     case this.state.Knight2b:
       findBlack = true;
       break;
+    case this.state.PawnB1: findBlack=true;break;
+    case this.state.PawnB2: findBlack=true;break;
+    case this.state.PawnB3: findBlack=true;break;
+    case this.state.PawnB4: findBlack=true;break;
+    case this.state.PawnB5: findBlack=true;break;
+    case this.state.PawnB6: findBlack=true;break;
+    case this.state.PawnB7: findBlack=true;break;
+    case this.state.PawnB8: findBlack=true;break;
     default:
       findBlack = false;
 
   }
   return findBlack;
 }
-
+PawnOptions(i){
+  if(this.BlackPieces(i)){this.checkPieces(i)};
+}
+PawnBOptions(i){
+  if(this.WhitePieces(i)){this.checkPieces2(i)};
+}
+movePawn(oRow, oCol, piece){
+  var opt = Array(0);
+  if(!this.BlackPieces(oCol + (oRow + 1)) &&
+     !this.WhitePieces(oCol + (oRow + 1))){
+    opt.push(oCol + (oRow + 1));
+    if(oRow === 2 &&
+      !this.BlackPieces(oCol + (oRow + 2)) &&
+      !this.WhitePieces(oCol + (oRow + 2))
+    ){
+      opt.push(oCol + (oRow + 2));
+    }
+  }
+  if(this.BlackPieces(row[row.indexOf(oCol) - 1] + (oRow + 1))){
+    opt.push(row[row.indexOf(oCol) - 1] + (oRow + 1));
+  }
+  if(this.BlackPieces(row[row.indexOf(oCol) + 1] + (oRow + 1))){
+    opt.push(row[row.indexOf(oCol) + 1] + (oRow + 1));
+  }
+  this.setState({options:opt, selected:piece});
+}
+movePawnB(oRow, oCol, piece){
+  var opt = Array(0);
+  if(!this.BlackPieces(oCol + (oRow - 1)) &&
+     !this.WhitePieces(oCol + (oRow - 1))){
+    opt.push(oCol + (oRow - 1));
+    if(oRow === 7 &&
+      !this.BlackPieces(oCol + (oRow - 2)) &&
+      !this.WhitePieces(oCol + (oRow - 2))
+    ){
+      opt.push(oCol + (oRow - 2));
+    }
+  }
+  if(this.WhitePieces(row[row.indexOf(oCol) - 1] + (oRow - 1))){
+    opt.push(row[row.indexOf(oCol) - 1] + (oRow - 1));
+  }
+  if(this.WhitePieces(row[row.indexOf(oCol) + 1] + (oRow - 1))){
+    opt.push(row[row.indexOf(oCol) + 1] + (oRow - 1));
+  }
+  this.setState({options:opt, selected:piece});
+}
 moveL(oRow, oCol, piece){
   var pos, opt = Array(0);
   pos = String(row[row.indexOf(oCol) + 1] + (oRow + 2));
@@ -320,6 +413,14 @@ moveDiagonal(oRow, oCol, piece){
         oCol = i.split("")[0],
         oRow = Number(i.split("")[1]);
     if (this.state.isWhitePlayer) {
+      if(i === this.state.PawnA1){this.movePawn(oRow, oCol, "PawnA1")};
+      if(i === this.state.PawnA2){this.movePawn(oRow, oCol, "PawnA2")};
+      if(i === this.state.PawnA3){this.movePawn(oRow, oCol, "PawnA3")};
+      if(i === this.state.PawnA4){this.movePawn(oRow, oCol, "PawnA4")};
+      if(i === this.state.PawnA5){this.movePawn(oRow, oCol, "PawnA5")};
+      if(i === this.state.PawnA6){this.movePawn(oRow, oCol, "PawnA6")};
+      if(i === this.state.PawnA7){this.movePawn(oRow, oCol, "PawnA7")};
+      if(i === this.state.PawnA8){this.movePawn(oRow, oCol, "PawnA8")};
       if(i === this.state.Knight1a){
         this.moveL(oRow, oCol, "Knight1a")
       }
@@ -411,6 +512,15 @@ moveDiagonal(oRow, oCol, piece){
 
       if(this.state.options.includes(i)) {
         switch (this.state.selected) {
+          case "PawnA1":this.PawnOptions(i);this.setState({isWhitePlayer:false, PawnA1:i, options:[]});break;
+          case "PawnA2":this.PawnOptions(i);this.setState({isWhitePlayer:false, PawnA2:i, options:[]});break;
+          case "PawnA3":this.PawnOptions(i);this.setState({isWhitePlayer:false, PawnA3:i, options:[]});break;
+          case "PawnA4":this.PawnOptions(i);this.setState({isWhitePlayer:false, PawnA4:i, options:[]});break;
+          case "PawnA5":this.PawnOptions(i);this.setState({isWhitePlayer:false, PawnA5:i, options:[]});break;
+          case "PawnA6":this.PawnOptions(i);this.setState({isWhitePlayer:false, PawnA6:i, options:[]});break;
+          case "PawnA7":this.PawnOptions(i);this.setState({isWhitePlayer:false, PawnA7:i, options:[]});break;
+          case "PawnA8":this.PawnOptions(i);this.setState({isWhitePlayer:false, PawnA8:i, options:[]});break;
+
           case "Knight1a":
             this.checkPieces(i);
             this.setState({isWhitePlayer:false, Knight1a:i, options:[]});
@@ -447,6 +557,14 @@ moveDiagonal(oRow, oCol, piece){
         }
       };
     }else{
+      if(i === this.state.PawnB1){this.movePawnB(oRow, oCol, "PawnB1")};
+      if(i === this.state.PawnB2){this.movePawnB(oRow, oCol, "PawnB2")};
+      if(i === this.state.PawnB3){this.movePawnB(oRow, oCol, "PawnB3")};
+      if(i === this.state.PawnB4){this.movePawnB(oRow, oCol, "PawnB4")};
+      if(i === this.state.PawnB5){this.movePawnB(oRow, oCol, "PawnB5")};
+      if(i === this.state.PawnB6){this.movePawnB(oRow, oCol, "PawnB6")};
+      if(i === this.state.PawnB7){this.movePawnB(oRow, oCol, "PawnB7")};
+      if(i === this.state.PawnB8){this.movePawnB(oRow, oCol, "PawnB8")};
       if(i === this.state.Knight2a){
         this.moveL2(oRow, oCol, "Knight2a");
       }
@@ -539,6 +657,15 @@ moveDiagonal(oRow, oCol, piece){
       };
       if(this.state.options.includes(i)) {
         switch(this.state.selected) {
+          case "PawnB1":this.PawnBOptions(i);this.setState({isWhitePlayer:true, PawnB1:i, options:[]});break;
+          case "PawnB2":this.PawnBOptions(i);this.setState({isWhitePlayer:true, PawnB2:i, options:[]});break;
+          case "PawnB3":this.PawnBOptions(i);this.setState({isWhitePlayer:true, PawnB3:i, options:[]});break;
+          case "PawnB4":this.PawnBOptions(i);this.setState({isWhitePlayer:true, PawnB4:i, options:[]});break;
+          case "PawnB5":this.PawnBOptions(i);this.setState({isWhitePlayer:true, PawnB5:i, options:[]});break;
+          case "PawnB6":this.PawnBOptions(i);this.setState({isWhitePlayer:true, PawnB6:i, options:[]});break;
+          case "PawnB7":this.PawnBOptions(i);this.setState({isWhitePlayer:true, PawnB7:i, options:[]});break;
+          case "PawnB8":this.PawnBOptions(i);this.setState({isWhitePlayer:true, PawnB8:i, options:[]});break;
+
           case "Knight2a":
             this.checkPieces2(i);
             this.setState({isWhitePlayer:true, Knight2a:i, options:[]});
@@ -579,6 +706,22 @@ moveDiagonal(oRow, oCol, piece){
   renderSquare(i){
     var color, piece;
     switch (i) {
+      case this.state.PawnA1: color = "red"; piece = "Pawn"; break;
+      case this.state.PawnA2: color = "red"; piece = "Pawn"; break;
+      case this.state.PawnA3: color = "red"; piece = "Pawn"; break;
+      case this.state.PawnA4: color = "red"; piece = "Pawn"; break;
+      case this.state.PawnA5: color = "red"; piece = "Pawn"; break;
+      case this.state.PawnA6: color = "red"; piece = "Pawn"; break;
+      case this.state.PawnA7: color = "red"; piece = "Pawn"; break;
+      case this.state.PawnA8: color = "red"; piece = "Pawn"; break;
+      case this.state.PawnB1: color = "blue"; piece = "Pawn"; break;
+      case this.state.PawnB2: color = "blue"; piece = "Pawn"; break;
+      case this.state.PawnB3: color = "blue"; piece = "Pawn"; break;
+      case this.state.PawnB4: color = "blue"; piece = "Pawn"; break;
+      case this.state.PawnB5: color = "blue"; piece = "Pawn"; break;
+      case this.state.PawnB6: color = "blue"; piece = "Pawn"; break;
+      case this.state.PawnB7: color = "blue"; piece = "Pawn"; break;
+      case this.state.PawnB8: color = "blue"; piece = "Pawn"; break;
       case this.state.Knight1a:
         color = "red";
         piece = "Knight";
