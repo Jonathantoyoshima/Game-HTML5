@@ -26,7 +26,22 @@ class Board extends Component {
       PawnA6:"F2",
       PawnA7:"G2",
       PawnA8:"H2",
-      QueenA1:"D5",
+      QueenA1:null,
+      QueenA2:null,
+      QueenA3:null,
+      QueenA4:null,
+      QueenA5:null,
+      QueenA6:null,
+      QueenA7:null,
+      QueenA8:null,
+      QueenB1:null,
+      QueenB2:null,
+      QueenB3:null,
+      QueenB4:null,
+      QueenB5:null,
+      QueenB6:null,
+      QueenB7:null,
+      QueenB8:null,
       King2: "E8",
       Queen2:"D8",
       Bishop2a:"C8",
@@ -76,15 +91,23 @@ class Board extends Component {
     if(i===this.state.Knight2b){
       this.setState({Knight2b:null});
     }
-    if(i===this.state.PawnB1){this.setState({PawnB1:null});}
-    if(i===this.state.PawnB2){this.setState({PawnB2:null});}
-    if(i===this.state.PawnB3){this.setState({PawnB3:null});}
-    if(i===this.state.PawnB4){this.setState({PawnB4:null});}
-    if(i===this.state.PawnB5){this.setState({PawnB5:null});}
-    if(i===this.state.PawnB6){this.setState({PawnB6:null});}
-    if(i===this.state.PawnB7){this.setState({PawnB7:null});}
-    if(i===this.state.PawnB8){this.setState({PawnB8:null});}
+    if(i===this.state.PawnB1){this.setState({PawnB1:null})};
+    if(i===this.state.PawnB2){this.setState({PawnB2:null})};
+    if(i===this.state.PawnB3){this.setState({PawnB3:null})};
+    if(i===this.state.PawnB4){this.setState({PawnB4:null})};
+    if(i===this.state.PawnB5){this.setState({PawnB5:null})};
+    if(i===this.state.PawnB6){this.setState({PawnB6:null})};
+    if(i===this.state.PawnB7){this.setState({PawnB7:null})};
+    if(i===this.state.PawnB8){this.setState({PawnB8:null})};
 
+    if(i===this.state.QueenB1){this.setState({QueenB1:null})};
+    if(i===this.state.QueenB2){this.setState({QueenB2:null})};
+    if(i===this.state.QueenB3){this.setState({QueenB3:null})};
+    if(i===this.state.QueenB4){this.setState({QueenB4:null})};
+    if(i===this.state.QueenB5){this.setState({QueenB5:null})};
+    if(i===this.state.QueenB6){this.setState({QueenB6:null})};
+    if(i===this.state.QueenB7){this.setState({QueenB7:null})};
+    if(i===this.state.QueenB8){this.setState({QueenB8:null})};
   }
   checkPieces2(i){
     if(i===this.state.King){
@@ -112,15 +135,23 @@ class Board extends Component {
     if(i===this.state.Knight1b){
       this.setState({Knight1b:null});
     }
-    if(i===this.state.QueenA1){this.setState({QueenA1:null});}
-    if(i===this.state.PawnA1){this.setState({PawnA1:null});}
-    if(i===this.state.PawnA2){this.setState({PawnA2:null});}
-    if(i===this.state.PawnA3){this.setState({PawnA3:null});}
-    if(i===this.state.PawnA4){this.setState({PawnA4:null});}
-    if(i===this.state.PawnA5){this.setState({PawnA5:null});}
-    if(i===this.state.PawnA6){this.setState({PawnA6:null});}
-    if(i===this.state.PawnA7){this.setState({PawnA7:null});}
-    if(i===this.state.PawnA8){this.setState({PawnA8:null});}
+    if(i===this.state.PawnA1){this.setState({PawnA1:null})};
+    if(i===this.state.PawnA2){this.setState({PawnA2:null})};
+    if(i===this.state.PawnA3){this.setState({PawnA3:null})};
+    if(i===this.state.PawnA4){this.setState({PawnA4:null})};
+    if(i===this.state.PawnA5){this.setState({PawnA5:null})};
+    if(i===this.state.PawnA6){this.setState({PawnA6:null})};
+    if(i===this.state.PawnA7){this.setState({PawnA7:null})};
+    if(i===this.state.PawnA8){this.setState({PawnA8:null})};
+
+    if(i===this.state.QueenA1){this.setState({QueenA1:null})};
+    if(i===this.state.QueenA2){this.setState({QueenA2:null})};
+    if(i===this.state.QueenA3){this.setState({QueenA3:null})};
+    if(i===this.state.QueenA4){this.setState({QueenA4:null})};
+    if(i===this.state.QueenA5){this.setState({QueenA5:null})};
+    if(i===this.state.QueenA6){this.setState({QueenA6:null})};
+    if(i===this.state.QueenA7){this.setState({QueenA7:null})};
+    if(i===this.state.QueenA8){this.setState({QueenA8:null})};
   }
 
 WhitePieces(pos){
@@ -150,7 +181,6 @@ WhitePieces(pos){
     case this.state.Knight1b:
       findWhite = true;
       break;
-    case this.state.QueenA1: findWhite=true;break;
     case this.state.PawnA1: findWhite=true;break;
     case this.state.PawnA2: findWhite=true;break;
     case this.state.PawnA3: findWhite=true;break;
@@ -159,9 +189,15 @@ WhitePieces(pos){
     case this.state.PawnA6: findWhite=true;break;
     case this.state.PawnA7: findWhite=true;break;
     case this.state.PawnA8: findWhite=true;break;
-    default:
-      findWhite = false;
-
+    case this.state.QueenA1: findWhite=true;break;
+    case this.state.QueenA2: findWhite=true;break;
+    case this.state.QueenA3: findWhite=true;break;
+    case this.state.QueenA4: findWhite=true;break;
+    case this.state.QueenA5: findWhite=true;break;
+    case this.state.QueenA6: findWhite=true;break;
+    case this.state.QueenA7: findWhite=true;break;
+    case this.state.QueenA8: findWhite=true;break;
+    default: findWhite = false;
   }
   return findWhite;
 }
@@ -201,26 +237,24 @@ BlackPieces(pos){
     case this.state.PawnB6: findBlack=true;break;
     case this.state.PawnB7: findBlack=true;break;
     case this.state.PawnB8: findBlack=true;break;
-    default:
-      findBlack = false;
 
+    case this.state.QueenB1: findBlack=true;break;
+    case this.state.QueenB2: findBlack=true;break;
+    case this.state.QueenB3: findBlack=true;break;
+    case this.state.QueenB4: findBlack=true;break;
+    case this.state.QueenB5: findBlack=true;break;
+    case this.state.QueenB6: findBlack=true;break;
+    case this.state.QueenB7: findBlack=true;break;
+    case this.state.QueenB8: findBlack=true;break;
+    default: findBlack = false;
   }
   return findBlack;
 }
-buildQueen(i){
-  this.setState({PawnA1:null, QueenA1: i});
-}
 PawnOptions(i){
   if(this.BlackPieces(i)){this.checkPieces(i)};
-  if(Number(i.split("")[1])===8){
-    this.buildQueen(i);
-  }
 }
 PawnBOptions(i){
   if(this.WhitePieces(i)){this.checkPieces2(i)};
-  if(Number(i.split("")[1])===8){
-    this.buildQueen(i);
-  }
 }
 movePawn(oRow, oCol, piece){
   var opt = Array(0);
@@ -471,6 +505,58 @@ moveDiagonal(oRow, oCol, piece){
     }
     this.setState({options:opt, selected:piece})
   }
+  moveQueenBlack(oRow, oCol, piece){
+    var idx, idx2, opt=Array(0);
+      for (idx = (oRow + 1); idx <= 8; idx++) {
+        if(this.BlackPieces(oCol + idx)){break;};
+        opt.push(String(oCol + idx));
+        if(this.WhitePieces(oCol + idx)){break;};
+      }
+      for (idx = oRow - 1; idx >= 0; idx--) {
+        if(this.BlackPieces(oCol + idx)){break;};
+        opt.push(String(oCol + idx));
+        if(this.WhitePieces(oCol + idx)){break;};
+      }
+      for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
+        if(this.BlackPieces(row[idx] + oRow)){break;};
+        opt.push(String(row[idx] + oRow));
+        if(this.WhitePieces(row[idx] + oRow)){break;};
+      }
+      for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
+        if(this.BlackPieces(row[idx] + oRow)){break;};
+        opt.push(String(row[idx] + oRow));
+        if(this.WhitePieces(row[idx] + oRow)){break;};
+      }
+      idx2 = oRow;
+      for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
+        idx2++;
+        if(this.BlackPieces(row[idx] + (idx2))){break;};
+        opt.push(String(row[idx] + (idx2)));
+        if(this.WhitePieces(row[idx] + (idx2))){break;};
+      }
+      idx2 = oRow;
+      for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
+        idx2--;
+        if(this.BlackPieces(row[idx] + (idx2))){break;};
+        opt.push(String(row[idx] + (idx2)));
+        if(this.WhitePieces(row[idx] + (idx2))){break;};
+      }
+      idx2 = oRow;
+      for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
+        idx2++;
+        if(this.BlackPieces(row[idx] + (idx2))){break;};
+        opt.push(String(row[idx] + (idx2)));
+        if(this.WhitePieces(row[idx] + (idx2))){break;};
+      }
+      idx2 = oRow;
+      for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
+        idx2--;
+        if(this.BlackPieces(row[idx] + (idx2))){break;};
+        opt.push(String(row[idx] + (idx2)));
+        if(this.WhitePieces(row[idx] + (idx2))){break;};
+      }
+      this.setState({options:opt, selected:piece});
+  }
   handleClick(i){
     console.log(i);
     var idx,idx2,o1,o2,o3,o4,o5,o6,o7,o8,
@@ -478,10 +564,6 @@ moveDiagonal(oRow, oCol, piece){
         oCol = i.split("")[0],
         oRow = Number(i.split("")[1]);
     if (this.state.isWhitePlayer) {
-      if(i === this.state.QueenA1){
-        console.log("OI?")
-        this.moveQueen(oRow, oCol, "QueenA1");
-      }
       if(i === this.state.PawnA1){this.movePawn(oRow, oCol, "PawnA1")};
       if(i === this.state.PawnA2){this.movePawn(oRow, oCol, "PawnA2")};
       if(i === this.state.PawnA3){this.movePawn(oRow, oCol, "PawnA3")};
@@ -490,6 +572,16 @@ moveDiagonal(oRow, oCol, piece){
       if(i === this.state.PawnA6){this.movePawn(oRow, oCol, "PawnA6")};
       if(i === this.state.PawnA7){this.movePawn(oRow, oCol, "PawnA7")};
       if(i === this.state.PawnA8){this.movePawn(oRow, oCol, "PawnA8")};
+
+      if(i === this.state.QueenA1){this.moveQueen(oRow, oCol, "QueenA1")};
+      if(i === this.state.QueenA2){this.moveQueen(oRow, oCol, "QueenA2")};
+      if(i === this.state.QueenA3){this.moveQueen(oRow, oCol, "QueenA3")};
+      if(i === this.state.QueenA4){this.moveQueen(oRow, oCol, "QueenA4")};
+      if(i === this.state.QueenA5){this.moveQueen(oRow, oCol, "QueenA5")};
+      if(i === this.state.QueenA6){this.moveQueen(oRow, oCol, "QueenA6")};
+      if(i === this.state.QueenA7){this.moveQueen(oRow, oCol, "QueenA7")};
+      if(i === this.state.QueenA8){this.moveQueen(oRow, oCol, "QueenA8")};
+
       if(i === this.state.Knight1a){
         this.moveL(oRow, oCol, "Knight1a")
       }
@@ -533,14 +625,78 @@ moveDiagonal(oRow, oCol, piece){
 
       if(this.state.options.includes(i)) {
         switch (this.state.selected) {
-          case "PawnA1":this.PawnOptions(i);this.setState({isWhitePlayer:false, PawnA1:i, options:[]});break;
-          case "PawnA2":this.PawnOptions(i);this.setState({isWhitePlayer:false, PawnA2:i, options:[]});break;
-          case "PawnA3":this.PawnOptions(i);this.setState({isWhitePlayer:false, PawnA3:i, options:[]});break;
-          case "PawnA4":this.PawnOptions(i);this.setState({isWhitePlayer:false, PawnA4:i, options:[]});break;
-          case "PawnA5":this.PawnOptions(i);this.setState({isWhitePlayer:false, PawnA5:i, options:[]});break;
-          case "PawnA6":this.PawnOptions(i);this.setState({isWhitePlayer:false, PawnA6:i, options:[]});break;
-          case "PawnA7":this.PawnOptions(i);this.setState({isWhitePlayer:false, PawnA7:i, options:[]});break;
-          case "PawnA8":this.PawnOptions(i);this.setState({isWhitePlayer:false, PawnA8:i, options:[]});break;
+          case "PawnA1":
+            this.PawnOptions(i);
+            if(Number(i.split("")[1]) === 8){
+              this.setState({PawnA1:null, QueenA1: i});
+            }else{
+              this.setState({PawnA1:i});
+            }
+            this.setState({isWhitePlayer:false, options:[]});
+            break;
+          case "PawnA2":
+            this.PawnOptions(i);
+            if(Number(i.split("")[1]) === 8){
+              this.setState({PawnA2:null, QueenA2: i});
+            }else{
+              this.setState({PawnA2:i});
+            }
+            this.setState({isWhitePlayer:false, options:[]});
+            break;
+          case "PawnA3":
+            this.PawnOptions(i);
+            if(Number(i.split("")[1]) === 8){
+              this.setState({PawnA3:null, QueenA3: i});
+            }else{
+              this.setState({PawnA3:i});
+            }
+            this.setState({isWhitePlayer:false, options:[]});
+            break;
+          case "PawnA4":
+            this.PawnOptions(i);
+            if(Number(i.split("")[1]) === 8){
+              this.setState({PawnA4: null, QueenA4: i});
+            }else{
+              this.setState({PawnA4:i});
+            }
+            this.setState({isWhitePlayer:false, options:[]});
+            break;
+          case "PawnA5":
+            this.PawnOptions(i);
+            if(Number(i.split("")[1]) === 8){
+              this.setState({PawnA5: null, QueenA5: i});
+            }else{
+              this.setState({PawnA5:i});
+            }
+            this.setState({isWhitePlayer:false, options:[]});
+            break;
+          case "PawnA6":
+            this.PawnOptions(i);
+            if(Number(i.split("")[1]) === 8){
+              this.setState({PawnA6: null, QueenA6: i});
+            }else{
+              this.setState({PawnA6:i});
+            }
+            this.setState({isWhitePlayer:false, options:[]});
+            break;
+          case "PawnA7":
+            this.PawnOptions(i);
+            if(Number(i.split("")[1]) === 8){
+              this.setState({PawnA7: null, QueenA7: i});
+            }else{
+              this.setState({PawnA7:i});
+            }
+            this.setState({isWhitePlayer:false, options:[]});
+            break;
+          case "PawnA8":
+            this.PawnOptions(i);
+            if(Number(i.split("")[1]) === 8){
+              this.setState({PawnA8: null, QueenA8: i});
+            }else{
+              this.setState({PawnA8:i});
+            }
+            this.setState({isWhitePlayer:false, options:[]});
+            break;
 
           case "Knight1a":
             this.checkPieces(i);
@@ -568,6 +724,14 @@ moveDiagonal(oRow, oCol, piece){
             break;
           case "Queen": this.checkPieces(i); this.setState({isWhitePlayer:false, Queen:i, options:[]}); break;
           case "QueenA1": this.checkPieces(i); this.setState({isWhitePlayer:false, QueenA1:i, options:[]}); break;
+          case "QueenA2": this.checkPieces(i); this.setState({isWhitePlayer:false, QueenA2:i, options:[]}); break;
+          case "QueenA3": this.checkPieces(i); this.setState({isWhitePlayer:false, QueenA3:i, options:[]}); break;
+          case "QueenA4": this.checkPieces(i); this.setState({isWhitePlayer:false, QueenA4:i, options:[]}); break;
+          case "QueenA5": this.checkPieces(i); this.setState({isWhitePlayer:false, QueenA5:i, options:[]}); break;
+          case "QueenA6": this.checkPieces(i); this.setState({isWhitePlayer:false, QueenA6:i, options:[]}); break;
+          case "QueenA7": this.checkPieces(i); this.setState({isWhitePlayer:false, QueenA7:i, options:[]}); break;
+          case "QueenA8": this.checkPieces(i); this.setState({isWhitePlayer:false, QueenA8:i, options:[]}); break;
+
           case "King":
             this.checkPieces(i);
             this.setState({isWhitePlayer:false, King:i, options:[]});
@@ -602,57 +766,16 @@ moveDiagonal(oRow, oCol, piece){
       if(i === this.state.Bishop2b){
         this.moveDiagonal2(oRow, oCol, "Bishop2b");
       }
-      if(i === this.state.Queen2){
-        for (idx = (oRow + 1); idx <= 8; idx++) {
-          if(this.BlackPieces(oCol + idx)){break;};
-          opt.push(String(oCol + idx));
-          if(this.WhitePieces(oCol + idx)){break;};
-        }
-        for (idx = oRow - 1; idx >= 0; idx--) {
-          if(this.BlackPieces(oCol + idx)){break;};
-          opt.push(String(oCol + idx));
-          if(this.WhitePieces(oCol + idx)){break;};
-        }
-        for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
-          if(this.BlackPieces(row[idx] + oRow)){break;};
-          opt.push(String(row[idx] + oRow));
-          if(this.WhitePieces(row[idx] + oRow)){break;};
-        }
-        for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
-          if(this.BlackPieces(row[idx] + oRow)){break;};
-          opt.push(String(row[idx] + oRow));
-          if(this.WhitePieces(row[idx] + oRow)){break;};
-        }
-        idx2 = oRow;
-        for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
-          idx2++;
-          if(this.BlackPieces(row[idx] + (idx2))){break;};
-          opt.push(String(row[idx] + (idx2)));
-          if(this.WhitePieces(row[idx] + (idx2))){break;};
-        }
-        idx2 = oRow;
-        for (idx = (row.indexOf(oCol) + 1); idx < row.length; idx++) {
-          idx2--;
-          if(this.BlackPieces(row[idx] + (idx2))){break;};
-          opt.push(String(row[idx] + (idx2)));
-          if(this.WhitePieces(row[idx] + (idx2))){break;};
-        }
-        idx2 = oRow;
-        for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
-          idx2++;
-          if(this.BlackPieces(row[idx] + (idx2))){break;};
-          opt.push(String(row[idx] + (idx2)));
-          if(this.WhitePieces(row[idx] + (idx2))){break;};
-        }
-        idx2 = oRow;
-        for (idx = (row.indexOf(oCol) - 1); idx > -1; idx--) {
-          idx2--;
-          if(this.BlackPieces(row[idx] + (idx2))){break;};
-          opt.push(String(row[idx] + (idx2)));
-          if(this.WhitePieces(row[idx] + (idx2))){break;};
-        }
-        this.setState({options:opt, selected:"Queen2"})
-      }
+      if(i === this.state.Queen2){this.moveQueenBlack(oRow, oCol, "Queen2")};
+
+      if(i === this.state.QueenB1){this.moveQueenBlack(oRow, oCol, "QueenB1")};
+      if(i === this.state.QueenB2){this.moveQueenBlack(oRow, oCol, "QueenB2")};
+      if(i === this.state.QueenB3){this.moveQueenBlack(oRow, oCol, "QueenB3")};
+      if(i === this.state.QueenB4){this.moveQueenBlack(oRow, oCol, "QueenB4")};
+      if(i === this.state.QueenB5){this.moveQueenBlack(oRow, oCol, "QueenB5")};
+      if(i === this.state.QueenB6){this.moveQueenBlack(oRow, oCol, "QueenB6")};
+      if(i === this.state.QueenB7){this.moveQueenBlack(oRow, oCol, "QueenB7")};
+      if(i === this.state.QueenB8){this.moveQueenBlack(oRow, oCol, "QueenB8")};
 
       if(i === this.state.King2){
         o1 = row[row.indexOf(i.split("")[0]) - 1] + (Number(i.split("")[1]) - 1);
@@ -676,19 +799,84 @@ moveDiagonal(oRow, oCol, piece){
       };
       if(this.state.options.includes(i)) {
         switch(this.state.selected) {
-          case "PawnB1":this.PawnBOptions(i);this.setState({isWhitePlayer:true, PawnB1:i, options:[]});break;
-          case "PawnB2":this.PawnBOptions(i);this.setState({isWhitePlayer:true, PawnB2:i, options:[]});break;
-          case "PawnB3":this.PawnBOptions(i);this.setState({isWhitePlayer:true, PawnB3:i, options:[]});break;
-          case "PawnB4":this.PawnBOptions(i);this.setState({isWhitePlayer:true, PawnB4:i, options:[]});break;
-          case "PawnB5":this.PawnBOptions(i);this.setState({isWhitePlayer:true, PawnB5:i, options:[]});break;
-          case "PawnB6":this.PawnBOptions(i);this.setState({isWhitePlayer:true, PawnB6:i, options:[]});break;
-          case "PawnB7":this.PawnBOptions(i);this.setState({isWhitePlayer:true, PawnB7:i, options:[]});break;
-          case "PawnB8":this.PawnBOptions(i);this.setState({isWhitePlayer:true, PawnB8:i, options:[]});break;
+          case "PawnB1":
+            this.PawnBOptions(i);
+            if(Number(i.split("")[1]) === 6){
+              this.setState({PawnB1:null, QueenB1: i});
+            }else{
+              this.setState({PawnB1:i});
+            }
+            this.setState({isWhitePlayer:true, options:[]});
+            break;
+          case "PawnB2":
+            this.PawnBOptions(i);
+            if(Number(i.split("")[1]) === 1){
+              this.setState({PawnB2:null, QueenB2: i});
+            }else{
+              this.setState({PawnB2:i});
+            }
+            this.setState({isWhitePlayer:true, options:[]});
+            break;
+          case "PawnB3":
+            this.PawnBOptions(i);
+            if(Number(i.split("")[1]) === 1){
+              this.setState({PawnB3:null, QueenB3: i});
+            }else{
+              this.setState({PawnB3:i});
+            }
+            this.setState({isWhitePlayer:true, options:[]});
+            break;
+          case "PawnB4":
+            this.PawnBOptions(i);
+            if(Number(i.split("")[1]) === 1){
+              this.setState({PawnB4: null, QueenB4: i});
+            }else{
+              this.setState({PawnB4:i});
+            }
+            this.setState({isWhitePlayer:true, options:[]});
+            break;
+          case "PawnB5":
+            this.PawnBOptions(i);
+            if(Number(i.split("")[1]) === 1){
+              this.setState({PawnB5: null, QueenB5: i});
+            }else{
+              this.setState({PawnB5:i});
+            }
+            this.setState({isWhitePlayer:true, options:[]});
+            break;
+          case "PawnB6":
+            this.PawnBOptions(i);
+            if(Number(i.split("")[1]) === 1){
+              this.setState({PawnB6: null, QueenB6: i});
+            }else{
+              this.setState({PawnB6:i});
+            }
+            this.setState({isWhitePlayer:true, options:[]});
+            break;
+          case "PawnB7":
+            this.PawnBOptions(i);
+            if(Number(i.split("")[1]) === 1){
+              this.setState({PawnB7: null, QueenB7: i});
+            }else{
+              this.setState({PawnB7:i});
+            }
+            this.setState({isWhitePlayer:true, options:[]});
+            break;
+          case "PawnB8":
+            this.PawnBOptions(i);
+            if(Number(i.split("")[1]) === 1){
+              this.setState({PawnB8: null, QueenB8: i});
+            }else{
+              this.setState({PawnB8:i});
+            }
+            this.setState({isWhitePlayer:true, options:[]});
+            break;
 
           case "Knight2a":
             this.checkPieces2(i);
             this.setState({isWhitePlayer:true, Knight2a:i, options:[]});
             break;
+
           case "Knight2b":
             this.checkPieces2(i);
             this.setState({isWhitePlayer:true, Knight2b:i, options:[]});
@@ -717,6 +905,15 @@ moveDiagonal(oRow, oCol, piece){
             this.checkPieces2(i);
             this.setState({isWhitePlayer:true, King2:i, options:[]});
             break;
+          case "QueenB1":this.checkPieces2(i);this.setState({isWhitePlayer: true, QueenB1:i, options:[]});break;
+          case "QueenB2":this.checkPieces2(i);this.setState({isWhitePlayer: true, QueenB2:i, options:[]});break;
+          case "QueenB3":this.checkPieces2(i);this.setState({isWhitePlayer: true, QueenB3:i, options:[]});break;
+          case "QueenB4":this.checkPieces2(i);this.setState({isWhitePlayer: true, QueenB4:i, options:[]});break;
+          case "QueenB5":this.checkPieces2(i);this.setState({isWhitePlayer: true, QueenB5:i, options:[]});break;
+          case "QueenB6":this.checkPieces2(i);this.setState({isWhitePlayer: true, QueenB6:i, options:[]});break;
+          case "QueenB7":this.checkPieces2(i);this.setState({isWhitePlayer: true, QueenB7:i, options:[]});break;
+          case "QueenB8":this.checkPieces2(i);this.setState({isWhitePlayer: true, QueenB8:i, options:[]});break;
+
           default:
         };
       };
@@ -725,7 +922,6 @@ moveDiagonal(oRow, oCol, piece){
   renderSquare(i){
     var color, piece;
     switch (i) {
-      case this.state.QueenA1: color = "red"; piece = "Queen"; break;
       case this.state.PawnA1: color = "red"; piece = "Pawn"; break;
       case this.state.PawnA2: color = "red"; piece = "Pawn"; break;
       case this.state.PawnA3: color = "red"; piece = "Pawn"; break;
@@ -734,6 +930,7 @@ moveDiagonal(oRow, oCol, piece){
       case this.state.PawnA6: color = "red"; piece = "Pawn"; break;
       case this.state.PawnA7: color = "red"; piece = "Pawn"; break;
       case this.state.PawnA8: color = "red"; piece = "Pawn"; break;
+
       case this.state.PawnB1: color = "blue"; piece = "Pawn"; break;
       case this.state.PawnB2: color = "blue"; piece = "Pawn"; break;
       case this.state.PawnB3: color = "blue"; piece = "Pawn"; break;
@@ -742,6 +939,25 @@ moveDiagonal(oRow, oCol, piece){
       case this.state.PawnB6: color = "blue"; piece = "Pawn"; break;
       case this.state.PawnB7: color = "blue"; piece = "Pawn"; break;
       case this.state.PawnB8: color = "blue"; piece = "Pawn"; break;
+
+      case this.state.QueenA1: color = "red"; piece = "Queen"; break;
+      case this.state.QueenA2: color = "red"; piece = "Queen"; break;
+      case this.state.QueenA3: color = "red"; piece = "Queen"; break;
+      case this.state.QueenA4: color = "red"; piece = "Queen"; break;
+      case this.state.QueenA5: color = "red"; piece = "Queen"; break;
+      case this.state.QueenA6: color = "red"; piece = "Queen"; break;
+      case this.state.QueenA7: color = "red"; piece = "Queen"; break;
+      case this.state.QueenA8: color = "red"; piece = "Queen"; break;
+
+      case this.state.QueenB1: color = "blue"; piece = "Queen"; break;
+      case this.state.QueenB2: color = "blue"; piece = "Queen"; break;
+      case this.state.QueenB3: color = "blue"; piece = "Queen"; break;
+      case this.state.QueenB4: color = "blue"; piece = "Queen"; break;
+      case this.state.QueenB5: color = "blue"; piece = "Queen"; break;
+      case this.state.QueenB6: color = "blue"; piece = "Queen"; break;
+      case this.state.QueenB7: color = "blue"; piece = "Queen"; break;
+      case this.state.QueenB8: color = "blue"; piece = "Queen"; break;
+
       case this.state.Knight1a:color = "red";piece = "Knight";break;
       case this.state.Knight1b:color = "red";piece = "Knight";break;
       case this.state.Knight2a:color = "blue";piece = "Knight";break;
@@ -759,10 +975,9 @@ moveDiagonal(oRow, oCol, piece){
       case this.state.Queen:color = "red";piece = "Queen";break;
       case this.state.Queen2:color = "blue";piece = "Queen";break;
       default:
-      if(this.state.options.includes(i) || this.state.options.includes(i)){
-        color = "green";
-      }
-
+        if(this.state.options.includes(i) || this.state.options.includes(i)){
+          color = "green";
+        }
     }
       return (
       <div
